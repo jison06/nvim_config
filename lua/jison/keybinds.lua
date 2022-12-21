@@ -10,6 +10,7 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', '<Space>w', ':w<CR>', { silent = true })
 vim.keymap.set('n', '<leader>fe', ':Explore<CR>', { silent = true })
+vim.keymap.set('n', '<leader>ff', ':Format<CR>', { silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

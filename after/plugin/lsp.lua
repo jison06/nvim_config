@@ -49,11 +49,11 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
+  clangd = {},
+  gopls = {},
+  pyright = {},
+  rust_analyzer = {},
+  tsserver = {},
 
   sumneko_lua = {
     Lua = {
@@ -61,6 +61,8 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  solargraph = {},
+  elixirls = {}
 }
 
 -- Setup neovim lua configuration
@@ -89,6 +91,9 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+require('lspconfig').solargraph.setup { }
+
 
 -- Turn on lsp status information
 require('fidget').setup()
