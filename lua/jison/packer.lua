@@ -1,6 +1,13 @@
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -16,6 +23,8 @@ require('packer').startup(function(use)
       'folke/neodev.nvim',
     },
   }
+  use('jose-elias-alvarez/null-ls.nvim')
+  use('MunifTanjim/prettier.nvim')
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
