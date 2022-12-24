@@ -17,6 +17,7 @@ require('packer').startup(function(use)
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      "jose-elias-alvarez/null-ls.nvim",
 
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
@@ -25,9 +26,8 @@ require('packer').startup(function(use)
       'folke/neodev.nvim',
     },
   }
-  use('jose-elias-alvarez/null-ls.nvim')
   use('MunifTanjim/prettier.nvim')
-  use('windwp/nvim-ts-autotag')
+  use('p00f/nvim-ts-rainbow')
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -61,6 +61,7 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+  use('rcarriga/nvim-notify')
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')

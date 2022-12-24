@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/home/jison/.local/share/nvim/site/pack/packer/start/neodev.nvim",
     url = "https://github.com/folke/neodev.nvim"
   },
+  neovim = {
+    loaded = true,
+    path = "/home/jison/.local/share/nvim/site/pack/packer/start/neovim",
+    url = "https://github.com/rose-pine/neovim"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/home/jison/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -148,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jison/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/home/jison/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -166,10 +176,10 @@ _G.packer_plugins = {
     path = "/home/jison/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
   },
-  ["nvim-ts-autotag"] = {
+  ["nvim-ts-rainbow"] = {
     loaded = true,
-    path = "/home/jison/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
-    url = "https://github.com/windwp/nvim-ts-autotag"
+    path = "/home/jison/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -190,12 +200,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jison/.local/share/nvim/site/pack/packer/start/prettier.nvim",
     url = "https://github.com/MunifTanjim/prettier.nvim"
-  },
-  ["rose-pine"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0" },
-    loaded = true,
-    path = "/home/jison/.local/share/nvim/site/pack/packer/start/rose-pine",
-    url = "https://github.com/rose-pine/neovim"
   },
   ["telescope-fzf-native.nvim"] = {
     cond = { true },
@@ -228,10 +232,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: rose-pine
-time([[Config for rose-pine]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
-time([[Config for rose-pine]], false)
 -- Conditional loads
 time([[Conditional loading of telescope-fzf-native.nvim]], true)
   require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)
