@@ -127,3 +127,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- nmap('<leader>wl', function()
 --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 -- end, '[W]orkspace [L]ist Folders')
+
+-- Bufferline
+vim.keymap.set('n', '<Tab>', ':BufferLineCycleNext<CR>', { silent = true })
+vim.keymap.set('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { silent = true })

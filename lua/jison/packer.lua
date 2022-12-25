@@ -1,5 +1,6 @@
 require('packer').startup(function(use)
   -- Package manager
+  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
   use 'wbthomason/packer.nvim'
   use {
     'nvim-tree/nvim-tree.lua',
