@@ -28,7 +28,8 @@ require('packer').startup(function(use)
     },
   }
   use('MunifTanjim/prettier.nvim')
-  use('p00f/nvim-ts-rainbow')
+  use('tpope/vim-surround')
+  use('RRethy/nvim-treesitter-endwise')
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
