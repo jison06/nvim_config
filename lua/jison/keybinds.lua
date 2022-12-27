@@ -29,6 +29,10 @@ vim.keymap.set('n', '<leader>fe', ':NvimTreeToggle<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ntff', ':NvimTreeFindFile<CR>', { silent = true })
 vim.keymap.set('n', '<leader>ntc', ':NvimTreeCollapse<CR>', { silent = true })
 
+-- Movement
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { silent = true })
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { silent = true })
+
 -- Treesitter keymaps
 --incremental_selection = {
 --   enable = true,
