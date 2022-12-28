@@ -10,8 +10,10 @@ require("packer").startup(function(use)
     tag = "nightly", -- optional, updated every week. (see issue #1193)
   })
 
-  -- Themes
+  -- tmux
+  use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
 
+  -- Themes
   use({ "catppuccin/nvim", as = "catppuccin" })
   use("rose-pine/neovim")
   use("ellisonleao/gruvbox.nvim")
