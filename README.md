@@ -1,5 +1,10 @@
 # NVIM CONFIG
 
+# IMPORTANT
+
+- TO GET AUTOFORMATTING WORKING USING MASON & NULL-LS, YOU NEED TO HAVE RUN :Mason AND HAVE INSTALLED THE FORMATTERS YOU WANT
+- ALSO PUT THE FORMATTERS IN `./after/plugin/null_ls.lua`
+
 ## Installation
 
 0. If ripgrep isn't installed run `$ sudo apt-get install ripgrep`
@@ -11,6 +16,7 @@
 ## Helpful shortcuts
 
 `<leader> = space`
+
 - `<leader>fe` - file explorer
 - `<leader>ff` - Format
 - `<leader>p` - run prettier

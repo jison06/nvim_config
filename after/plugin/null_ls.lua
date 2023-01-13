@@ -17,6 +17,7 @@ null_ls.setup({
   sources = {
     --  to disable file types use
     --  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
+    --  You need to add the formatters you want here as well as install them in mason to use them
     formatting.prettier, -- js/ts formatter
     formatting.stylua, -- lua formatter
     formatting.rubocop,
