@@ -19,6 +19,8 @@ require("nvim-treesitter.configs").setup({
     "embedded_template",
     "json",
     "markdown",
+    "javascript",
+    "regex",
   },
   endwise = {
     enable = true,

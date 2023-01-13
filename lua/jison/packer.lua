@@ -10,6 +10,12 @@ require("packer").startup(function(use)
     tag = "nightly", -- optional, updated every week. (see issue #1193)
   })
 
+  -- AI helpers
+  use("github/copilot.vim")
+
+  -- Which key after leader helper
+  use("folke/which-key.nvim")
+
   -- tmux
   use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
 
@@ -39,19 +45,33 @@ require("packer").startup(function(use)
   use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
   use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
   use("folke/neodev.nvim")
+  use({
+    "akinsho/flutter-tools.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("flutter-tools").setup({
+        experimental = { -- map of feature flags
+          lsp_derive_paths = true, -- experimental: Attempt to find the user's flutter SDK
+        },
+      })
+    end,
+  })
 
   -- formatting & linting
   use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
   use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
   use("MunifTanjim/prettier.nvim")
 
-  use("tpope/vim-surround")
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
+  })
   use("RRethy/nvim-treesitter-endwise")
-
-  -- use { -- Autocompletion
-  --   'hrsh7th/nvim-cmp',
-  --   requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  -- }
 
   use({ -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
@@ -86,6 +106,8 @@ require("packer").startup(function(use)
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
+
+  -- UI plugins
   use("rcarriga/nvim-notify")
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
