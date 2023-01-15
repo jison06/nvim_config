@@ -17,7 +17,8 @@ local on_attach = function(client, bufnr)
   end
 
   nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-  nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  -- nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  nmap("<leader>ca", "<cmd>CodeActionMenu<CR>", "[C]ode [A]ction")
 
   -- nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -49,7 +50,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
   vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
   vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-  vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
+  -- vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
   vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
   vim.keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
   vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
@@ -85,6 +86,8 @@ local servers = {
   },
   solargraph = {},
   elixirls = {},
+  dockerls = {},
+  emmet_ls = {},
 }
 
 -- Setup neovim lua configuration
@@ -114,102 +117,115 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
+require("lspconfig").dartls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = servers["dart"],
+  init_options = {
+    closingLabels = true,
+    flutterOutline = true,
+    onlyAnalyzeProjectsWithOpenFiles = false,
+    outline = true,
+    suggestFromUnimportedLibraries = true,
+  },
+})
+
 -- Turn on lsp status information
--- require('fidget').setup()
+require("fidget").setup()
 -- Utility functions shared between progress reports for LSP and DAP
 
 -- Setting up notifications
-local client_notifs = {}
-
-local function get_notif_data(client_id, token)
-  if not client_notifs[client_id] then
-    client_notifs[client_id] = {}
-  end
-
-  if not client_notifs[client_id][token] then
-    client_notifs[client_id][token] = {}
-  end
-
-  return client_notifs[client_id][token]
-end
-
-local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
-
-local function update_spinner(client_id, token)
-  local notif_data = get_notif_data(client_id, token)
-
-  if notif_data.spinner then
-    local new_spinner = (notif_data.spinner + 1) % #spinner_frames
-    notif_data.spinner = new_spinner
-
-    notif_data.notification = vim.notify(nil, nil, {
-      hide_from_history = true,
-      icon = spinner_frames[new_spinner],
-      replace = notif_data.notification,
-    })
-
-    vim.defer_fn(function()
-      update_spinner(client_id, token)
-    end, 100)
-  end
-end
-
-local function format_title(title, client_name)
-  return client_name .. (#title > 0 and ": " .. title or "")
-end
-
-local function format_message(message, percentage)
-  return (percentage and percentage .. "%\t" or "") .. (message or "")
-end
-
--- LSP integration
--- Make sure to also have the snippet with the common helper functions in your config!
-
-vim.lsp.handlers["$/progress"] = function(_, result, ctx)
-  local client_id = ctx.client_id
-
-  local val = result.value
-
-  if not val.kind then
-    return
-  end
-
-  local notif_data = get_notif_data(client_id, result.token)
-
-  if val.kind == "begin" then
-    local message = format_message(val.message, val.percentage)
-
-    notif_data.notification = vim.notify(message, "info", {
-      title = format_title(val.title, vim.lsp.get_client_by_id(client_id).name),
-      icon = spinner_frames[1],
-      timeout = false,
-      hide_from_history = false,
-    })
-
-    notif_data.spinner = 1
-    update_spinner(client_id, result.token)
-  elseif val.kind == "report" and notif_data then
-    notif_data.notification = vim.notify(format_message(val.message, val.percentage), "info", {
-      replace = notif_data.notification,
-      hide_from_history = false,
-    })
-  elseif val.kind == "end" and notif_data then
-    notif_data.notification = vim.notify(val.message and format_message(val.message) or "Complete", "info", {
-      icon = "",
-      replace = notif_data.notification,
-      timeout = 3000,
-    })
-
-    notif_data.spinner = nil
-  end
-end
--- table from lsp severity to vim severity.
-local severity = {
-  "error",
-  "warn",
-  "info",
-  "info", -- map both hint and info to info?
-}
-vim.lsp.handlers["window/showMessage"] = function(err, method, params, client_id)
-  vim.notify(method.message, severity[params.type])
-end
+-- local client_notifs = {}
+--
+-- local function get_notif_data(client_id, token)
+--   if not client_notifs[client_id] then
+--     client_notifs[client_id] = {}
+--   end
+--
+--   if not client_notifs[client_id][token] then
+--     client_notifs[client_id][token] = {}
+--   end
+--
+--   return client_notifs[client_id][token]
+-- end
+--
+-- local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+--
+-- local function update_spinner(client_id, token)
+--   local notif_data = get_notif_data(client_id, token)
+--
+--   if notif_data.spinner then
+--     local new_spinner = (notif_data.spinner + 1) % #spinner_frames
+--     notif_data.spinner = new_spinner
+--
+--     notif_data.notification = vim.notify(nil, nil, {
+--       hide_from_history = true,
+--       icon = spinner_frames[new_spinner],
+--       replace = notif_data.notification,
+--     })
+--
+--     vim.defer_fn(function()
+--       update_spinner(client_id, token)
+--     end, 100)
+--   end
+-- end
+--
+-- local function format_title(title, client_name)
+--   return client_name .. (#title > 0 and ": " .. title or "")
+-- end
+--
+-- local function format_message(message, percentage)
+--   return (percentage and percentage .. "%\t" or "") .. (message or "")
+-- end
+--
+-- -- LSP integration
+-- -- Make sure to also have the snippet with the common helper functions in your config!
+--
+-- vim.lsp.handlers["$/progress"] = function(_, result, ctx)
+--   local client_id = ctx.client_id
+--
+--   local val = result.value
+--
+--   if not val.kind then
+--     return
+--   end
+--
+--   local notif_data = get_notif_data(client_id, result.token)
+--
+--   if val.kind == "begin" then
+--     local message = format_message(val.message, val.percentage)
+--
+--     notif_data.notification = vim.notify(message, "info", {
+--       title = format_title(val.title, vim.lsp.get_client_by_id(client_id).name),
+--       icon = spinner_frames[1],
+--       timeout = false,
+--       hide_from_history = false,
+--     })
+--
+--     notif_data.spinner = 1
+--     update_spinner(client_id, result.token)
+--   elseif val.kind == "report" and notif_data then
+--     notif_data.notification = vim.notify(format_message(val.message, val.percentage), "info", {
+--       replace = notif_data.notification,
+--       hide_from_history = false,
+--     })
+--   elseif val.kind == "end" and notif_data then
+--     notif_data.notification = vim.notify(val.message and format_message(val.message) or "Complete", "info", {
+--       icon = "",
+--       replace = notif_data.notification,
+--       timeout = 3000,
+--     })
+--
+--     notif_data.spinner = nil
+--   end
+-- end
+-- -- table from lsp severity to vim severity.
+-- local severity = {
+--   "error",
+--   "warn",
+--   "info",
+--   "info", -- map both hint and info to info?
+-- }
+-- vim.lsp.handlers["window/showMessage"] = function(err, method, params, client_id)
+--   vim.notify(method.message, severity[params.type])
+-- end

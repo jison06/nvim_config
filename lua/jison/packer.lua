@@ -45,17 +45,7 @@ require("packer").startup(function(use)
   use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
   use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
   use("folke/neodev.nvim")
-  use({
-    "akinsho/flutter-tools.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("flutter-tools").setup({
-        experimental = { -- map of feature flags
-          lsp_derive_paths = true, -- experimental: Attempt to find the user's flutter SDK
-        },
-      })
-    end,
-  })
+  use({ "weilbith/nvim-code-action-menu", cmd = "CodeActionMenu" })
 
   -- formatting & linting
   use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
@@ -109,6 +99,7 @@ require("packer").startup(function(use)
 
   -- UI plugins
   use("rcarriga/nvim-notify")
+  use("j-hui/fidget.nvim")
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, "custom.plugins")
