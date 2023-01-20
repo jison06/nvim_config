@@ -28,7 +28,8 @@ local on_attach = function(client, bufnr)
   nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
   -- See `:help K` for why this keymap
-  nmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
+  -- nmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
+  nmap("<leader>k", "<cmd>lua vim.lsp.buf.hover()<CR>", "Signature Documentation")
 
   -- Lesser used LSP functionality
   nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -39,10 +40,45 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "[W]orkspace [L]ist Folders")
 
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-    vim.lsp.buf.format()
-  end, { desc = "Format current buffer with LSP" })
+  -- lsp diagnostic config
+  vim.diagnostic.config({
+    virtual_text = true, -- Turn off inline diagnostics
+    underline = true,
+    underline_highlight = true,
+    colors = {
+      -- Default colors
+      Error = "#db4b4b",
+      Warning = "#e0af68",
+      Hint = "#0db9d7",
+      Information = "#0db9d7",
+    },
+  })
+
+  -- Use this if you want it to automatically show all diagnostics on the
+  -- current line in a floating window. Personally, I find this a bit
+  -- distracting and prefer to manually trigger it (see below). The
+  -- CursorHold event happens when after `updatetime` milliseconds. The
+  -- default is 4000 which is much too long
+  -- vim.cmd("autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics(${bufnr})")
+  -- vim.o.updatetime = 300
+
+  -- Show all diagnostics on current line in floating window
+  vim.api.nvim_set_keymap("n", "<Leader>d", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+  -- Go to next diagnostic (if there are multiple on the same line, only shows
+  -- one at a time in the floating window)
+  vim.api.nvim_set_keymap("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true })
+  -- Go to prev diagnostic (if there are multiple on the same line, only shows
+  -- one at a time in the floating window)
+  vim.api.nvim_set_keymap(
+    "n",
+    "[d",
+    ":lua vim.diagnostic.goto_prev()<CR>",
+    { noremap = true, silent = true },
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
+      vim.lsp.buf.format()
+    end, { desc = "Format current buffer with LSP" })
+  )
 
   -- keybind options
   local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -56,8 +92,8 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
   -- vim.keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
   -- vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-  vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-  vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
+  -- vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
+  -- vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
   -- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
   -- vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts) -- see outline on right hand side
 
@@ -67,6 +103,16 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
     vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
   end
+
+  -- setup lsp_signature.nvim
+  local onAttatchOpts = {
+    log_path = vim.fn.expand("$HOME") .. "/tmp/sig.log",
+    debug = true,
+    hint_enable = false,
+    handler_opts = { border = "single" },
+    max_width = 80,
+  }
+  require("lsp_signature").on_attach(onAttatchOpts, bufnr)
 end
 
 -- Enable the following language servers

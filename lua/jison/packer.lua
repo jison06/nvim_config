@@ -11,7 +11,7 @@ require("packer").startup(function(use)
   })
 
   -- AI helpers
-  use("github/copilot.vim")
+  use({ "zbirenbaum/copilot.lua" })
 
   -- Which key after leader helper
   use("folke/which-key.nvim")
@@ -28,6 +28,13 @@ require("packer").startup(function(use)
   use("hrsh7th/nvim-cmp") -- completion plugin
   use("hrsh7th/cmp-buffer") -- source for text in buffer
   use("hrsh7th/cmp-path") -- source for file system paths
+  use({
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  })
 
   -- snippets
   use("L3MON4D3/LuaSnip") -- snippet engine
@@ -42,6 +49,7 @@ require("packer").startup(function(use)
   use("neovim/nvim-lspconfig") -- easily configure language servers
   use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
   -- use({ "glepnir/lspsaga.nvim", branch = "main" }) -- enhanced lsp uis
+  use("ray-x/lsp_signature.nvim")
   use({
     "kosayoda/nvim-lightbulb",
     requires = "antoinemadec/FixCursorHold.nvim",

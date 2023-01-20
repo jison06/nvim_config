@@ -13,6 +13,15 @@ require("telescope").setup({
     find_files = {
       theme = "dropdown",
     },
+    buffers = {
+      theme = "dropdown",
+    },
+    live_grep = {
+      theme = "dropdown",
+    },
+    diagnostics = {
+      theme = "dropdown",
+    },
   },
 })
 
