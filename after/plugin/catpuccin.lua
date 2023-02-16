@@ -2,7 +2,7 @@ require("catppuccin").setup({
   flavour = "frappe", -- latte, frappe, macchiato, mocha
   background = { -- :h background
     light = "latte",
-    dark = "frappe",
+    dark = "macchiato",
   },
   transparent_background = false,
   term_colors = false,
@@ -11,8 +11,6 @@ require("catppuccin").setup({
     shade = "dark",
     percentage = 0.15,
   },
-  no_italic = false, -- Force no italic
-  no_bold = false, -- Force no bold
   styles = {
     comments = { "italic" },
     conditionals = { "italic" },
@@ -41,4 +39,4 @@ require("catppuccin").setup({
 })
 
 -- setup must be called before loading
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin-macchiato")

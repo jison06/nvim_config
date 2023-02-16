@@ -81,7 +81,7 @@ local on_attach = function(client, bufnr)
   )
 
   -- keybind options
-  local opts = { noremap = true, silent = true, buffer = bufnr }
+  -- local opts = { noremap = true, silent = true, buffer = bufnr }
 
   -- set keybinds
   -- vim.keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
@@ -126,7 +126,7 @@ local servers = {
   rust_analyzer = {},
   tsserver = {},
 
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -165,17 +165,30 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
-require("lspconfig").dartls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = servers["dart"],
-  init_options = {
-    closingLabels = true,
-    flutterOutline = true,
-    onlyAnalyzeProjectsWithOpenFiles = false,
-    outline = true,
-    suggestFromUnimportedLibraries = true,
+-- require("lspconfig").dartls.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   init_options = {
+--     onlyAnalyzeProjectsWithOpenFiles = false,
+--     suggestFromUnimportedLibraries = true,
+--     closingLabels = true,
+--     outline = true,
+--     flutterOutline = false,
+--   },
+--   settings = {
+--     dartls = {
+--       completeFunctionCalls = true,
+--       showTodos = true,
+--     },
+--   },
+-- })
+require("flutter-tools").setup({
+  lsp = {
+    on_attach = on_attach,
+    capabilities = capabilities,
   },
+  flutter_path = "/home/jison/.asdf/installs/flutter/3.3.10-stable/bin/flutter",
+  dart_sdk_path = "/home/jison/.asdf/installs/dart/2.18.7/dart-sdk/bin/dart",
 })
 
 -- Turn on lsp status information

@@ -12,6 +12,10 @@ require("telescope").setup({
   pickers = {
     find_files = {
       theme = "dropdown",
+      diagnostics = {
+        enable = false,
+      },
+      previewer = false,
     },
     buffers = {
       theme = "dropdown",
@@ -20,6 +24,39 @@ require("telescope").setup({
       theme = "dropdown",
     },
     diagnostics = {
+      theme = "dropdown",
+    },
+    symbols_outline = {
+      theme = "dropdown",
+    },
+    document_symbols = {
+      theme = "dropdown",
+    },
+    lsp_document_symbols = {
+      theme = "dropdown",
+    },
+    lsp_workspace_symbols = {
+      theme = "dropdown",
+    },
+    lsp_references = {
+      theme = "dropdown",
+    },
+    lsp_code_actions = {
+      theme = "dropdown",
+    },
+    lsp_definitions = {
+      theme = "dropdown",
+    },
+    lsp_implementations = {
+      theme = "dropdown",
+    },
+    lsp_type_definitions = {
+      theme = "dropdown",
+    },
+    lsp_document_diagnostics = {
+      theme = "dropdown",
+    },
+    lsp_workspace_diagnostics = {
       theme = "dropdown",
     },
   },

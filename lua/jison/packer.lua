@@ -13,6 +13,8 @@ require("packer").startup(function(use)
   -- AI helpers
   use({ "zbirenbaum/copilot.lua" })
 
+  -- multiple cursors
+  use({ "mg979/vim-visual-multi", branch = "master" })
   -- Which key after leader helper
   use("folke/which-key.nvim")
 
@@ -21,6 +23,7 @@ require("packer").startup(function(use)
 
   -- Themes
   use({ "catppuccin/nvim", as = "catppuccin" })
+  use("marko-cerovac/material.nvim")
   use("rose-pine/neovim")
   use("ellisonleao/gruvbox.nvim")
 
@@ -44,6 +47,7 @@ require("packer").startup(function(use)
   -- managing & installing lsp servers, linters & formatters
   use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
   use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
+  use("akinsho/flutter-tools.nvim")
 
   -- configuring lsp servers
   use("neovim/nvim-lspconfig") -- easily configure language servers
