@@ -338,6 +338,11 @@ _G.packer_plugins = {
     path = "/home/jison/.local/share/nvim/site/pack/packer/start/typescript.nvim",
     url = "https://github.com/jose-elias-alvarez/typescript.nvim"
   },
+  ["vgit.nvim"] = {
+    loaded = true,
+    path = "/home/jison/.local/share/nvim/site/pack/packer/start/vgit.nvim",
+    url = "https://github.com/tanvirtin/vgit.nvim"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/jison/.local/share/nvim/site/pack/packer/start/vim-fugitive",

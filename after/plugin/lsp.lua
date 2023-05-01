@@ -125,14 +125,20 @@ local servers = {
   pyright = {},
   rust_analyzer = {},
   tsserver = {},
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
-  solargraph = {},
+  solargraph = {
+    settings = {
+      solargraph = {
+        diagnostics = true,
+        formatting = true,
+      },
+    },
+  },
   elixirls = {},
   dockerls = {},
   emmet_ls = {},
