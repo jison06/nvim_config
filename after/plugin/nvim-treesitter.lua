@@ -10,7 +10,7 @@ require("nvim-treesitter.configs").setup({
     "python",
     "rust",
     "typescript",
-    "help",
+    -- "help",
     "ruby",
     "elixir",
     "heex",

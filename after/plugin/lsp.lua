@@ -1,4 +1,4 @@
-vim.notify = require("notify")
+-- vim.notify = require("notify")
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
@@ -99,9 +99,9 @@ local on_attach = function(client, bufnr)
 
   -- typescript specific vim.keymaps (e.g. rename file and update imports)
   if client.name == "tsserver" then
-    vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>") -- rename file and update imports
+    vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>")      -- rename file and update imports
     vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
-    vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
+    vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>")    -- remove unused variables (not in youtube nvim video)
   end
 
   -- setup lsp_signature.nvim
@@ -122,9 +122,9 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   clangd = {},
-  pyright = {},
+  -- pyright = {},
   rust_analyzer = {},
-  tsserver = {},
+  -- tsserver = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -140,8 +140,11 @@ local servers = {
     },
   },
   elixirls = {},
-  dockerls = {},
-  emmet_ls = {},
+  terraformls = {},
+  eslint = {},
+
+  -- dockerls = {},
+  -- emmet_ls = {},
 }
 
 -- Setup neovim lua configuration
@@ -188,14 +191,14 @@ mason_lspconfig.setup_handlers({
 --     },
 --   },
 -- })
-require("flutter-tools").setup({
-  lsp = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  },
-  flutter_path = "/home/jison/.asdf/installs/flutter/3.3.10-stable/bin/flutter",
-  dart_sdk_path = "/home/jison/.asdf/installs/dart/2.18.7/dart-sdk/bin/dart",
-})
+-- require("flutter-tools").setup({
+--   lsp = {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--   },
+--   flutter_path = "/home/jison/.asdf/installs/flutter/3.3.10-stable/bin/flutter",
+--   dart_sdk_path = "/home/jison/.asdf/installs/dart/2.18.7/dart-sdk/bin/dart",
+-- })
 
 -- Turn on lsp status information
 require("fidget").setup()

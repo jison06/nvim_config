@@ -32,3 +32,8 @@ vim.o.background = 'dark'
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+vim.o.foldmethod = 'indent'
+vim.o.foldlevel = 99
+
+-- Copy to clipboard
+vim.o.clipboard = 'unnamed'

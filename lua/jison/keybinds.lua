@@ -29,9 +29,16 @@ vim.keymap.set("n", "<leader>fe", ":NvimTreeToggle<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ntff", ":NvimTreeFindFile<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ntc", ":NvimTreeCollapse<CR>", { silent = true })
 
--- Movement
+-- Movement - With alt key
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { silent = true })
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { silent = true })
+
+vim.keymap.set("n", "<A-down>", ":m .+1<CR>==", { silent = true })
+vim.keymap.set("n", "<A-up>", ":m .-2<CR>==", { silent = true })
+--
+-- -- Movement - for Mac
+-- vim.keymap.set("n", "<å-j>", ":m .+1<CR>==", { silent = true })
+-- vim.keymap.set("n", "<å-k>", ":m .-2<CR>==", { silent = true })
 
 -- Treesitter keymaps
 --incremental_selection = {
@@ -102,7 +109,7 @@ vim.keymap.set("n", "<leader>/", function()
   }))
 end, { desc = "[/] Fuzzily search in current buffer]" })
 
-vim.keymap.set("n", "<leader>sn", require("telescope").extensions.notify.notify, { desc = "[S]earch [N]otifications" })
+-- vim.keymap.set("n", "<leader>sn", require("telescope").extensions.notify.notify, { desc = "[S]earch [N]otifications" })
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
@@ -136,3 +143,6 @@ vim.keymap.set("n", "<leader>gs", require("telescope.builtin").git_status, { des
 -- Bufferline
 vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>", { silent = true })
 vim.keymap.set("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { silent = true })
+
+-- JQ JSON formatter
+vim.keymap.set("n", "<leader>jq", ':%!jq "."<CR>', { silent = true })
